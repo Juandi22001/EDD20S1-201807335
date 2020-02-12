@@ -1,127 +1,109 @@
+// Tarea4.cpp : Este archivo contiene la función "main". La ejecución del programa comienza y termina ahí.
+//
+
 #include <iostream>
 #include <conio.h>
 #include <stdlib.h>
 
-	#include <string.h>
+#include <string.h>
 using namespace std;
 
-class NodoEstudiante{
-	
-	 public :int carne;
-	 public : string Nombre;
-	NodoEstudiante *siguiente;
-	
-	
-	
+struct  Nodo{
+
+char Letra;
+		Nodo* anterior;
+		Nodo* siguiente;
+
+
 };
-void insertarLista(NodoEstudiante *&,int,string);
-void Mostrar(NodoEstudiante *);
+
+Nodo* Primero; Nodo* Ultimo;
+void insertarLista();
+void Mostrar();
 void Menu();
-	NodoEstudiante *lista =NULL;
-void Buscar(NodoEstudiante *,int);	
 
 int main() {
 
 	Menu();
+	_getch();
 
-	
-	getch();
 	return 0;
 }
-void Menu(){
-	
-	string nombre;
-	
-	int opcion,dato;
-	do{cout<<" \t.:MENU:.\n";
-      
-      cout<<" 1.Insertar Datos \n";
-	  cout<<" 2.Ver Datos \n";
-	  cout<<" 3.Buscar  Datos \n";
-	  cout<<" 4.Eliminar Datos \n";
-	  cin>>opcion;
-	  switch (opcion){
-	  	case 1:
-	  		cout<<"Digite su nombre";
-	cin>> nombre;
-	cout<<"Digite su carne ";
-	cin>> dato;
-	insertarLista(lista,dato,nombre);
-	cout<<"\n";
-	
-	  system("pause");
-			  break;
-	  	case 2:
-	  		Mostrar(lista);
-	  
-	  system("pause");
-	  	system ("cls");
-		  	break;
-		  	case 3:
-		  		cout <<"Ingrese Carne";
-				  cin>>dato;
-				  Buscar(lista,dato);
-				  
-				  		  		system("cls");
-		  		break;
- 
-	  }
-	  
-	  }
-	 
-	while(opcion !=3);
+void Menu() {
+
+
+
+	int opcion;
+	do {
+		cout << " \t.:MENU:.\n";
+
+		cout << " 1.Insertar Datos \n";
+		cout << " 2.Ver Datos \n";
+		cout << " 3.Buscar  Datos \n";
+		cout << " 4.Eliminar Datos \n";
+		cin >> opcion;
+		switch (opcion) {
+		case 1:
+			insertarLista();
+			cout << "\n";
+
+			system("pause");
+			break;
+		case 2:
+			Mostrar();
+			break;
+		}
+
+	}
+
+	while (opcion != 2);
 }
 
-void insertarLista(NodoEstudiante *& lista ,int n ,string nombre){
-	
-	NodoEstudiante *nuevo_nodo = new NodoEstudiante();
-	nuevo_nodo -> carne =n;
-	nuevo_nodo ->Nombre =nombre;
-	NodoEstudiante *aux1 = lista;
-	NodoEstudiante *aux2;
-	
-	while((aux1 != NULL) && (aux1-> carne<n))
- {
- 	
- 	aux2=aux1;
- 	aux1 = aux1->siguiente;
- }	
-	if (lista==aux1){
-		lista = nuevo_nodo;
-		
-		
+void insertarLista() {
+	Nodo* nuevoNodo = new Nodo();
+	cout << "Digite Letra";
+	cin >> nuevoNodo->Letra;
+
+	cout << nuevoNodo->Letra;
+	if (Primero == NULL) {
+		Primero = nuevoNodo;
+		Primero->siguiente = NULL;
+		Ultimo = Primero;
+
 	}
-	else{
-		
-		aux2 -> siguiente= nuevo_nodo;
-		
+	else
+	{
+		Ultimo->siguiente = nuevoNodo;
+		nuevoNodo->siguiente = NULL;
+		nuevoNodo->anterior = Ultimo;
+		Ultimo = nuevoNodo;
 	}
-	nuevo_nodo -> siguiente = aux1;
-	cout<<"Elemento " <<nombre<<" ->"<<n<< "insertado con exito \n";
+	cout << "ingresado";
 }
-void Mostrar(NodoEstudiante *lista){
-	NodoEstudiante *actual = new NodoEstudiante ();
-	actual =lista;
-	while(actual != NULL){
-		cout<< actual->Nombre << "-" << actual->carne<< "->";
-		actual = actual->siguiente;
+void Mostrar() {
+
+	Nodo* actual = Primero;
+;
+	if (Primero != NULL) {
+
+		while (actual != NULL) {
+			cout << "que pedo?" << actual->siguiente;
+			actual = actual->siguiente;
+		}
+	}
+	else {
+		cout << "no hay nada en  la lista";
 	}
 }
 
-void Buscar(NodoEstudiante *lista ,int carne){
-	NodoEstudiante *actual = new NodoEstudiante();
-     actual =lista;
-     bool val =false;
-     
-     while((actual != NULL)&& (actual ->carne <= carne)){
-     	if(actual->carne ==carne){
-     		val =true;
-     	} actual =actual ->siguiente;
-     	if(val==true){
-     		cout<< "Elemento "<<carne<<"si existe \n";
-     		cout<< actual->Nombre << "-" << actual->carne;
-     		
-     	}else{ cout<< "Elemento No encontrado";
-     }
-}
-}
+
+// Ejecutar programa: Ctrl + F5 o menú Depurar > Iniciar sin depurar
+// Depurar programa: F5 o menú Depurar > Iniciar depuración
+
+// Sugerencias para primeros pasos: 1. Use la ventana del Explorador de soluciones para agregar y administrar archivos
+//   2. Use la ventana de Team Explorer para conectar con el control de código fuente
+//   3. Use la ventana de salida para ver la salida de compilación y otros mensajes
+//   4. Use la ventana Lista de errores para ver los errores
+//   5. Vaya a Proyecto > Agregar nuevo elemento para crear nuevos archivos de código, o a Proyecto > Agregar elemento existente para agregar archivos de código existentes al proyecto
+//   6. En el futuro, para volver a abrir este proyecto, vaya a Archivo > Abrir > Proyecto y seleccione el archivo .sln
+
